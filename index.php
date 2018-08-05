@@ -21,12 +21,108 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$NYTRGN = $_REQUEST['NYTRGN'];
 	$Hotel = $_REQUEST['Hotel'];
 
+	$database = new Database();
+
 	//inserting data to the table delegates
-	//TODO
+	$query_insert_delegates = "INSERT INTO delegates (
+		Title,
+		Firstname,
+		Lastname,
+		Organization,
+		City,
+		Telephone,
+		Email,
+		Arrival,
+		Departure,
+		Airport_Trf,
+		Special,
+		Payment
+		) VALUES (
+		:Title,
+		:Firstname,
+		:Lastname,
+		:Organization,
+		:City,
+		:Telephone,
+		:Email,
+		:Arrival,
+		:Departure,
+		:Airport_Trf,
+		:Special,
+		:Payment
+		)
+	;";
+	$database->query($query_insert_delegates);
+	$database->bind(':Title', $Title);
+	$database->bind(':Firstname', $Firstname);
+	$database->bind(':Lastname', $Lastname);
+	$database->bind(':Organization', $Organization);
+	$database->bind(':City', $City);
+	$database->bind(':Telephone', $Telephone);
+	$database->bind(':Email', $Email);
+	$database->bind(':Arrival', $Arrival);
+	$database->bind(':Departure', $Departure);
+	$database->bind(':Airport_Trf', $Airport_Trf);
+	$database->bind(':Special', $Special);
+	$database->bind(':Payment', $Payment);
+	if ($database->execute()) {
+		//getting the Id from the table delegates
+		$query_delegates_Id = "SELECT Id from delegates WHERE
+			Firstname = :Firstname AND
+			Lastname = :Lastname AND
+			Organization = :Organization
+		;";
+		$database->query($query_delegates_Id);
+		$database->bind(':Firstname', $Firstname);
+		$database->bind(':Lastname', $Lastname);
+		$database->bind(':Organization', $Organization);
+		$rows = $database->resultset();
+		foreach ($rows as $row) {
+			$DelegateId = $row->Id;
+		}
 
+		$insert_flight_RGNNYT = "INSERT INTO bookings (
+			DelegateId,
+			ServiceId
+			) VALUES (
+			:DelegateId,
+			:ServiceId
+			)
+		;";
+		$database->query($insert_flight_RGNNYT);
+		$database->bind(':DelegateId', $DelegateId);
+		$database->bind(':ServiceId', $RGNNYT);
+		$database->execute();
+
+		$insert_flight_NYTRGN = "INSERT INTO bookings (
+			DelegateId,
+			ServiceId
+			) VALUES (
+			:DelegateId,
+			:ServiceId
+			)
+		;";
+		$database->query($insert_flight_NYTRGN);
+		$database->bind(':DelegateId', $DelegateId);
+		$database->bind(':ServiceId', $NYTRGN);
+		$database->execute();
+
+		$insert_hotel = "INSERT INTO bookings (
+			DelegateId,
+			ServiceId
+			) VALUES (
+			:DelegateId,
+			:ServiceId
+			)
+		;";
+		$database->query($insert_hotel);
+		$database->bind(':DelegateId', $DelegateId);
+		$database->bind(':ServiceId', $Hotel);
+		$database->execute();
+		
+		header("location:thankyou.php?DelegateId=$DelegateId");
+	}
 }
-
-
 ?>
 
 <!DOCTYPE html>
@@ -46,7 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				Reservations for Myanmar Global Investment Forum 2018
 			</h1>
 			<p>
-				For group bookings, pelase contact us at
+				For group bookings, please contact us at
 				<a href="mailto:den@linkinmyanmar.com">den@linkinmyanmar.com</a>
 			</p>
 		</header>
@@ -87,25 +183,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					</li>
 					<li>
 						Arrival Date to Nay Pyi Taw: &nbsp;
-						<select name="Arrival">
-							<?php
-							$rows_dates = table_dates('select', NULL);
-							foreach ($rows_dates as $row_dates) {
-								echo "<option value=\"$row_dates->Id\">".date("d-M-Y", strtotime($row_dates->Date))."</option>";
-							}
-							?>
-						</select>
+						<input type="date" name="Arrival" required>
 					</li>
 					<li>
 						Departure Date from Nay Pyi Taw: &nbsp;
-						<select name="Departure">
-							<?php
-							$rows_dates = table_dates('select', NULL);
-							foreach ($rows_dates as $row_dates) {
-								echo "<option value=\"$row_dates->Id\">".date("d-M-Y", strtotime($row_dates->Date))."</option>";
-							}
-							?>
-						</select>
+						<input type="date" name="Departure" required>
 					</li>
 					<li class="sub-titles">Flights between Yangon & Nay Pyi Taw</li>
 					<li>
@@ -167,7 +249,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 						</select>
 					</li>
 					<li>
-						<button type="button" name="buttonSubmit">Submit</button>
+						<button type="submit" name="buttonSubmit">Submit</button>
 					</li>
 				</ul>
 			</form>
