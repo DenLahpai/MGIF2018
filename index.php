@@ -119,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$database->bind(':DelegateId', $DelegateId);
 		$database->bind(':ServiceId', $Hotel);
 		$database->execute();
-		
+
 		header("location:thankyou.php?DelegateId=$DelegateId");
 	}
 }
@@ -254,6 +254,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				</ul>
 			</form>
 		</main>
+		<footer>
+			<p>
+				Copyright (c) 2018 Link In Myanmar Travel Co  All Rights Reserved.
+			</p>
+			<ul>
+				<li style="font-weight: bold;">Link In Myanmar Travel Co Ltd</li>
+				<li>Tel: +95 9402108150</li>
+				<li>Email: <a href="mailto: info@linkinmyanmar.com">info@linkinmyanmar.com</a></li>
+				<li>No 72, 3rd Floor, Tayoke Kyaung Street</li>
+				<li>Sanchaung Township, Yangon</li>
+				<li>Myanmar</li>
+			</ul>
+		</footer>
 	</div>
 	<!-- end of content -->
 </body>

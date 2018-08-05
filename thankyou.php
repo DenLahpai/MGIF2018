@@ -90,9 +90,37 @@ mail($mailto, $subject, $message, $header);
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <title></title>
+    	<link rel="stylesheet" href="styles/main.css">
+    	<link rel="Shortcut icon" href="images/Logo_small.png"/>
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    	<title>Reservations for MGIF 2018</title>
     </head>
     <body>
+        <!-- content -->
+        <div class="content">
+            <header>
+                <h1>Thank you for your booking!</h1>
+                <p>
+                    We will get back to you shortly with the confirmations.
+                </p>
+            </header>
+            <main>
 
+            </main>
+            <footer>
+    			<p>
+    				Copyright (c) 2018 Link In Myanmar Travel Co  All Rights Reserved.
+    			</p>
+    			<ul>
+    				<li style="font-weight: bold;">Link In Myanmar Travel Co Ltd</li>
+    				<li>Tel: +95 9402108150</li>
+    				<li>Email: <a href="mailto: info@linkinmyanmar.com">info@linkinmyanmar.com</a></li>
+    				<li>No 72, 3rd Floor, Tayoke Kyaung Street</li>
+    				<li>Sanchaung Township, Yangon</li>
+    				<li>Myanmar</li>
+    			</ul>
+    		</footer>
+        </div>
+        <!-- end of content-->
     </body>
 </html>

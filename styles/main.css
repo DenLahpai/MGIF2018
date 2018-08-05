@@ -61,3 +61,10 @@ button{
 	border-radius: 3px;
 	border: none;
 }
+
+footer {
+	grid-area: footer;
+	background: silver;
+	text-align: center;
+	padding: 12px;
+}
