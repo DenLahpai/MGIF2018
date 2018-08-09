@@ -48,18 +48,22 @@ main ul li textarea {
 	resize: none;
 }
 
+main ul li select {
+	padding: 6px;
+}
+
 .sub-titles {
 	text-align: center;
 	font-weight: bold;
 }
 
 button{
-	padding: 6px 12px;
+	padding: 12px 24px;
 	background-color: #2C9F42;
 	color: white;
 	font-weight: bold;
 	border-radius: 3px;
-	border: none;
+	border: 1px solid gold;
 }
 
 footer {

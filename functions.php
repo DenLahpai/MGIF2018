@@ -33,7 +33,7 @@ function table_select_services($Type, $sector) {
 	$database = new Database();
 	switch ($Type) {
 		case 'AC':
-			$query = "SELECT * FROM services WHERE Type = :Type ;";
+			$query = "SELECT * FROM services WHERE Type = :Type ORDER BY Id DESC ;";
 			$database->query($query);
 			$database->bind(':Type', $Type);
 			return $r = $database->resultset();
@@ -110,6 +110,7 @@ function table_select_bookings($DelegateId) {
 			delegates.Arrival,
 			delegates.Departure,
 			delegates.Airport_Trf,
+			delegates.Payment,
 			services.Service,
 			services.Supplier,
 			services.Type,

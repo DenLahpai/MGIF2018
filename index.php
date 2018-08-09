@@ -193,7 +193,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					<li>
 						Flight Yangon - Nay Pyi Taw: &nbsp;
 						<select name="RGNNYT">
-							<option value="0">Own Arrangment</option>
+							<option value="14">Own Arrangment</option>
 							<?php
 							$rows_RGNNYT = table_select_services('FL', 'Yangon - Nay Pyi Taw');
 							foreach ($rows_RGNNYT as $row_RGNNYT) {
@@ -206,7 +206,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					<li>
 						Flight Nay Pyi Taw - Yangon: &nbsp;
 						<select name="NYTRGN">
-							<option value="0">Own Arrangment</option>
+							<option value="14">Own Arrangment</option>
 							<?php
 							$rows_NYTRGN = table_select_services('FL', 'Nay Pyi Taw - Yangon');
 							foreach ($rows_NYTRGN as $row_NYTRGN) {
@@ -219,7 +219,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					<li>
 						Hotel in Nay Pyi Taw: &nbsp;
 						<select name="Hotel">
-							<option value="0">Own Arrangment</option>
+							<option value="15">Own Arrangment</option>
 							<?php
 							$rows_hotel = table_select_services('AC', NULL);
 							foreach ($rows_hotel as $row_hotel) {

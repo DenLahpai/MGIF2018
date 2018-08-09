@@ -39,20 +39,26 @@ foreach ($rows_data as $row_data) {
     if ($row_data->Type == 'FL') {
         switch ($row_data->Service) {
             case 'Yangon - Nay Pyi Taw':
-            $message .= "<li>".date('d-M-Y', strtotime($row_data->Arrival)).": ".$row_data->Supplier.", ".$row_data->Service.": "
-            .date('H:i', strtotime($row_data->ETD))." - ".date('H:i', strtotime($row_data->ETA))."</li>";
+                $message .= "<li>".date('d-M-Y', strtotime($row_data->Arrival)).": ".$row_data->Supplier.", ".$row_data->Service.": "
+                .date('H:i', strtotime($row_data->ETD))." - ".date('H:i', strtotime($row_data->ETA))."</li>";
+                break;
+
+            case 'Nay Pyi Taw - Yangon':
+                $message .= "<li>".date('d-M-Y', strtotime($row_data->Departure)).": ".$row_data->Supplier.", ".$row_data->Service.": "
+                .date('H:i', strtotime($row_data->ETD))." - ".date('H:i', strtotime($row_data->ETA))."</li>";
                 break;
 
             default:
-            $message .= "<li>".date('d-M-Y', strtotime($row_data->Departure)).": ".$row_data->Supplier.", ".$row_data->Service.": "
-            .date('H:i', strtotime($row_data->ETD))." - ".date('H:i', strtotime($row_data->ETA))."</li>";
-                break;
+                $message .= "<li>Flight: Own Arrangement</li>";
         }
     }
-    else {
+    elseif ($row_data->Type == 'AC') {
         $message .= "<li><span style='font-weight: bold';>".$row_data->Supplier."</span> - ".$row_data->Service." Room, ";
         $message .= "Check-in: ".date('d-M-Y', strtotime($row_data->Arrival)).", ";
         $message .= "Check-out: ".date('d-M-Y', strtotime($row_data->Departure))."</li>";
+    }
+    else {
+        $message .= "<li>Hotel: Own Arrangement</li>";
     }
 }
 
@@ -78,13 +84,19 @@ switch ($row_data->Airport_Trf) {
         // code...
         break;
 }
-$message .= "</li>";
+$message .= "<br><br></li>";
+$message .= "<li>Payment Option: ";
+if ($row_data->Payment == 1) {
+    $message .= "Bank Transfer (Our account in Singapore)</li>";
+}
+else {
+    $message .= "Visa / Master</li>";
+}
 
 $header = "FROM: $row_data->Firstname $row_data->Lastname <$row_data->Email>\r\n";
 $header .= "Content-type: text/html\r\n";
 
 mail($mailto, $subject, $message, $header);
-
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
