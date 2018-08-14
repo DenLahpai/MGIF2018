@@ -72,3 +72,24 @@ footer {
 	text-align: center;
 	padding: 12px;
 }
+
+.content main table {
+	text-align: center;
+	margin: 6px auto;
+	width: 90%;
+	border-collapse: collapse;
+}
+
+.content main table thead tr:nth-of-type(1) {
+	background: #009f00;
+}
+
+.content main table tr th {
+	padding: 6px;
+	border: 1px solid silver;
+}
+
+.content main table tr td {
+	padding: 3px;
+	border: 1px solid silver;
+}
